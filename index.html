@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Berat Badan Ideal Calculator</title>
+</head>
+<body>
+  <h1>Berat Badan Ideal Calculator</h1>
+
+  <p><strong>Cek ideal atau tidak</strong></p>
+  <form id="body-mass-form">
+    <select id="gender">
+      <option value="male">Laki-laki</option>
+      <option value="female">Perempuan</option>
+    </select>
+    <br>
+
+    <label for="height">Tinggi badan</label>
+    <input id="height" name="height" type="text" >
+
+    <br>
+
+    <label for="weight">Berat badan</label>
+    <input id="weight" name="weight" type="text" >
+
+  </form>
+  <button onclick="calculate()" >Hitung</button>
+
+  <div id="result">
+
+  </div>
+  
+  <script src="./bodyMassIdeal.js"></script>
+  <script>  
+    function calculate() {
+      var selectGender = document.getElementById("gender");
+      var bodyGender = selectGender.options[selectGender.selectedIndex].value;
+
+      var inputHeight = document.querySelector('#height');
+      var bodyHeight = Number(inputHeight.value)
+  
+      var inputWeight = document.querySelector('#weight');
+      var bodyWeight = Number(inputWeight.value)
+
+      const app = new BodyMassIdeal(bodyGender, bodyHeight, bodyWeight)
+      app.print()
+
+      var alertText = "!!!!!!!!!!RESULT!!!!!!!!!! \n"
+      alertText += "Jenis kelamin anda: "
+      alertText += app.gender === "male" ? "LAKI-LAKI" : "PEREMPUAN"
+      alertText += "\n"
+      alertText += `Tinggi badan anda: ${app.height}\n`
+      alertText += `Berat badan anda: ${app.weight}\n`
+      alertText += `Berat badan ideal anda: ${app.idealMass}\n`
+      alertText += "Apakah anda ideal? "
+      alertText += app.isIdeal ? "YA" : "TIDAK"
+      alertText += "\n"
+      alertText += "=========================="
+      alert(alertText)
+
+      inputHeight.value = ""
+      inputWeight.value = ""
+    }
+  </script>
+</body>
+</html>
